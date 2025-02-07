@@ -1,0 +1,546 @@
+-- Create a function to initialize the GUI
+local function createGUI(player)
+    -- Create a ScreenGui and parent it to the player's PlayerGui
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "CustomGUI"  -- Naming it to make it easier to check for it later
+    screenGui.Parent = player:WaitForChild("PlayerGui")
+
+    -- Create a larger Frame with a dark gray background
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.new(0, 400, 0, 300)  -- Width: 400px, Height: 300px
+    frame.Position = UDim2.new(0.5, -200, 0.5, -150)  -- Centering the frame
+    frame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)  -- Dark gray color
+    frame.BorderSizePixel = 4
+    frame.BorderColor3 = Color3.new(1, 1, 1)  -- White border
+    frame.Parent = screenGui
+
+    -- Adding the "Farm Player" toggle button in the top-left corner
+    local toggleButton = Instance.new("TextButton")
+    toggleButton.Size = UDim2.new(0, 150, 0, 50)
+    toggleButton.Position = UDim2.new(0, 10, 0, 10)  -- Top-left with 10px margin
+    toggleButton.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+    toggleButton.Text = "Farm Player: OFF"
+    toggleButton.TextColor3 = Color3.new(1, 1, 1)
+    toggleButton.Font = Enum.Font.SourceSansBold
+    toggleButton.TextSize = 20
+    toggleButton.Parent = frame
+
+    -- Toggle functionality
+    local toggleState = false
+    toggleButton.MouseButton1Click:Connect(function()
+        toggleState = not toggleState
+        if toggleState then
+            toggleButton.Text = "Farm Player: ON"
+            print("Farm enabled")
+            
+            local args = {
+                "Blacknwhite27"
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("cha"):InvokeServer(unpack(args))
+            local args = {
+                "Blacknwhite27"
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("cha"):InvokeServer(unpack(args))
+            local args = {
+                "Blacknwhite27"
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("cha"):InvokeServer(unpack(args))
+            local args = {
+                "Blacknwhite27"
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("cha"):InvokeServer(unpack(args))
+            local args = {
+                "Blacknwhite27"
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("cha"):InvokeServer(unpack(args))
+            local args = {
+                "Blacknwhite27"
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("cha"):InvokeServer(unpack(args))
+            
+
+            -- Enable all the farm actions
+            _G.p = true
+            _G.ev = true
+            _G.ms = true
+            _G.mk = true
+            _G.hpr = true
+            _G.mcra = true
+            _G.bc = true
+            _G.mcha = true
+            _G.hk = true
+            _G.eg = true
+            _G.eg1 = true
+            _G.gssp = true
+            _G.sbc = true
+    
+            task.spawn(function ()
+                while _G.sbc == true do
+                    local args = {
+                        [1] = "Spirit Breaking Cannon",
+                        [2] = "Blacknwhite27"
+                    }
+                    
+                    game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("mel"):InvokeServer(unpack(args))
+                    wait(0.3)
+                end
+            end)
+    
+    
+            task.spawn(function ()
+                while _G.gssp == true do
+                    local args = {
+                        [1] = "God Slicer",
+                        [2] = "Blacknwhite27"
+                    }
+                    
+                    game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("mel"):InvokeServer(unpack(args))
+                    local args = {
+                        [1] = "Spirit Barrage",
+                        [2] = "Blacknwhite27"
+                    }
+                    
+                    game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("mel"):InvokeServer(unpack(args))
+                    local args = {
+                        "Blacknwhite27"
+                    }
+                    game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("cha"):InvokeServer(unpack(args))
+                    
+                    wait(0.3)
+                end
+            end)
+            task.spawn(function ()
+                while _G.eg1 == true do
+                    local args = {
+                        [1] = 1,
+                        [2] = false,
+                        [3] = CFrame.new(1279.8564453125, 22.01598358154297, 1065.0931396484375, 0.49050575494766235, 1.5363575300852972e-08, 0.8714379668235779, -3.878772858456614e-09, 1, -1.544690064747556e-08, -0.8714379668235779, 4.196683889290398e-09, 0.49050575494766235)
+                    }
+                    
+                    game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("kb"):FireServer(unpack(args))
+                    local args = {
+                        "Blacknwhite27"
+                    }
+                    game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("cha"):InvokeServer(unpack(args))
+                    
+                    wait(.3)
+                end
+            end)
+            task.spawn(function()
+                while _G.p == true do
+                    local args = {
+                        [1] = "Blacknwhite27",
+                        [2] = 1
+                    }
+                    
+                    game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("p"):FireServer(unpack(args))
+                    local args = {
+                        [1] = "Blacknwhite27",
+                        [2] = 2
+                    }
+                    
+                    game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("p"):FireServer(unpack(args))
+                    local args = {
+                        [1] = "Blacknwhite27",
+                        [2] = 3
+                    }
+                    
+                    game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("p"):FireServer(unpack(args))
+                    local args = {
+                        "Blacknwhite27"
+                    }
+                    game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("cha"):InvokeServer(unpack(args))
+                    
+                    wait(0.3)
+                end
+            end)
+            task.spawn(function()
+                while _G.ev == true do
+                    local args = {
+                        [1] = "Energy Volley",
+                        [2] = {
+                            ["FaceMouse"] = true,
+                            ["MouseHit"] = CFrame.new(1413.6954345703125, 18.40189552307129, 1140.620361328125, -0.43670985102653503, -0.7820748686790466, 0.44457122683525085, 1.4901161193847656e-08, 0.4941863417625427, 0.8693560361862183, -0.899602472782135, 0.3796563446521759, -0.21581602096557617)
+                        },
+                        [3] = "Blacknwhite27"
+                    }
+                    
+                    game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("voleys"):InvokeServer(unpack(args))
+                                local args = {
+                "Blacknwhite27"
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("cha"):InvokeServer(unpack(args))
+            local args = {
+                "Blacknwhite27"
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("cha"):InvokeServer(unpack(args))
+                    wait(0.3)
+                end
+            end)
+            task.spawn(function ()
+                while _G.ms == true do
+                    local args = {
+                        [1] = "Meteor Strike",
+                        [2] = "Blacknwhite27"
+                    }
+                    
+                    
+                    game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("mel"):InvokeServer(unpack(args))
+                    wait(0.3)
+                end
+            end)
+            task.spawn(function ()
+                while _G.mk == true do
+                    local args = {
+                        [1] = "Mach Kick",
+                        [2] = "Blacknwhite27"
+                    }
+                    
+                    game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("mel"):InvokeServer(unpack(args))
+                    wait(0.3)
+                end
+            end)
+            task.spawn(function()
+                wait(0.3)
+                while _G.hpr == true do
+                    local args = {
+                        [1] = "High Power Rush",
+                        [2] = "Blacknwhite27"
+                    }
+                    
+                    game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("mel"):InvokeServer(unpack(args))
+                    wait(0.3)
+                end
+            end)
+            task.spawn(function()
+                while _G.mcra == true do
+                    local args = {
+                        [1] = "Meteor Crash",
+                        [2] = "Blacknwhite27"
+                    }
+                    
+                    game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("mel"):InvokeServer(unpack(args))
+                    wait(0.3)
+                end
+            end)
+            task.spawn(function()
+                while _G.bc == true do
+                    local args = {
+                        [1] = "Bone Crusher",
+                        [2] = "Blacknwhite27"
+                    }
+                    
+                    game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("mel"):InvokeServer(unpack(args))
+                    wait(0.3)
+                end
+            end)
+            task.spawn(function()
+                while _G.mcha == true do
+                    local args = {
+                        [1] = "Meteor Charge",
+                        [2] = "Blacknwhite27"
+                    }
+                    
+                    game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("mel"):InvokeServer(unpack(args))
+                    wait(0.3)
+                end
+            end)
+           task.spawn(function()
+                while _G.hk == true do
+                    local args = {
+                        [1] = "Soul Punisher",
+                        [2] = {
+                            ["FaceMouse"] = true,
+                            ["MouseHit"] = CFrame.new(1399.7783203125, 18.40189552307129, 1144.019287109375, -0.7223548293113708, -0.5993351340293884, 0.3449651598930359, -1.4901162970204496e-08, 0.49884873628616333, 0.8666890859603882, -0.6915226578712463, 0.6260570287704468, -0.3603457510471344)
+                        },
+                        [3] = "Blacknwhite27"
+                    }
+                    
+                    game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("Hak"):InvokeServer(unpack(args))
+                    wait(0.)
+                end
+            end)
+        else
+            toggleButton.Text = "Farm Player: OFF"
+            print("Farm disabled")
+    
+            -- Disable all actions
+
+            _G.p = false
+            _G.ev = false
+            _G.ms = false
+            _G.mk = false
+            _G.hpr = false
+            _G.mcra = false
+            _G.bc = false
+            _G.mcha = false
+            _G.hk = false
+            _G.eg = false
+            _G.eg1 = false
+            _G.gssp = false
+            _G.sbc = false
+        end
+    end)
+    -- Adding the "Form" button in the top-right corner
+    local formButton = Instance.new("TextButton")
+    formButton.Size = UDim2.new(0, 150, 0, 50)
+    formButton.Position = UDim2.new(1, -160, 0, 10)  -- Top-right corner (10px from right edge)
+    formButton.AnchorPoint = Vector2.new(0, 0)  -- Ensures positioning from the right edge
+    formButton.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
+    formButton.Text = "Form"
+    formButton.TextColor3 = Color3.new(1, 1, 1)
+    formButton.Font = Enum.Font.SourceSansBold
+    formButton.TextSize = 20
+    formButton.Parent = frame
+
+    -- Form button functionality
+    formButton.MouseButton1Click:Connect(function()
+        local args = {
+            "Astral Instinct"
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("equipskill"):InvokeServer(unpack(args))
+
+        game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("ta"):InvokeServer()
+
+        print("Form activated: Astral Instinct equipped!")
+    end)
+
+-- Function to get all player names
+local function getPlayerNames()
+    local players = game.Players:GetPlayers()
+    local playerNames = {}
+    for _, p in ipairs(players) do
+        table.insert(playerNames, p.Name)
+    end
+    return playerNames
+end
+
+local teleporting = false -- Toggle state
+local selectedPlayer = nil -- Stores the selected player
+
+-- Create a dropdown button to open the player list
+local dropdownButton = Instance.new("TextButton")
+dropdownButton.Size = UDim2.new(0, 150, 0, 50)
+dropdownButton.Position = UDim2.new(0, 10, 0, 70) -- Below the "Farm Player" toggle
+dropdownButton.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+dropdownButton.Text = "Select Player"
+dropdownButton.TextColor3 = Color3.new(1, 1, 1)
+dropdownButton.Font = Enum.Font.SourceSansBold
+dropdownButton.TextSize = 20
+dropdownButton.Parent = frame
+
+-- Create a toggle button for teleporting
+local teleportToggle = Instance.new("TextButton")
+teleportToggle.Size = UDim2.new(0, 150, 0, 50)
+teleportToggle.Position = UDim2.new(0, 10, 0, 130) -- Below the dropdown button
+teleportToggle.BackgroundColor3 = Color3.fromRGB(100, 0, 0) -- Red for OFF
+teleportToggle.Text = "Start Teleport"
+teleportToggle.TextColor3 = Color3.new(1, 1, 1)
+teleportToggle.Font = Enum.Font.SourceSansBold
+teleportToggle.TextSize = 20
+teleportToggle.Parent = frame
+
+-- Create a scrolling frame to fit dropdown items inside the GUI
+local dropdownFrame = Instance.new("ScrollingFrame")
+dropdownFrame.Size = UDim2.new(0, 150, 0, 120)
+dropdownFrame.Position = UDim2.new(0, 10, 0, 190)
+dropdownFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+dropdownFrame.Visible = false
+dropdownFrame.ScrollBarThickness = 8
+dropdownFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
+dropdownFrame.Parent = frame
+
+-- Function to teleport to the selected player
+local function teleportLoop()
+    while teleporting do
+        if selectedPlayer and selectedPlayer.Character then
+            local targetTorso = selectedPlayer.Character:FindFirstChild("Torso") or selectedPlayer.Character:FindFirstChild("UpperTorso")
+            if targetTorso and game.Players.LocalPlayer.Character then
+                local humanoidRootPart = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+                if humanoidRootPart then
+                    humanoidRootPart.CFrame = targetTorso.CFrame
+                end
+            end
+        end
+        wait() -- Prevents high CPU usage
+    end
+end
+
+-- Toggle teleporting
+teleportToggle.MouseButton1Click:Connect(function()
+    teleporting = not teleporting
+    teleportToggle.Text = teleporting and "Stop Teleport" or "Start Teleport"
+    teleportToggle.BackgroundColor3 = teleporting and Color3.fromRGB(0, 100, 0) or Color3.fromRGB(100, 0, 0) -- Green for ON, Red for OFF
+
+
+    
+    if teleporting then
+        teleportLoop()
+    end
+end)
+
+-- Populate the dropdown with player names
+local function populateDropdown()
+    for _, child in ipairs(dropdownFrame:GetChildren()) do
+        if child:IsA("TextButton") then
+            child:Destroy()
+        end
+    end
+
+    local playerNames = getPlayerNames()
+    dropdownFrame.CanvasSize = UDim2.new(0, 0, 0, #playerNames * 30)
+
+    for i, playerName in ipairs(playerNames) do
+        local playerButton = Instance.new("TextButton")
+        playerButton.Size = UDim2.new(1, 0, 0, 30)
+        playerButton.Position = UDim2.new(0, 0, 0, (i - 1) * 30)
+        playerButton.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+        playerButton.Text = playerName
+        playerButton.TextColor3 = Color3.new(1, 1, 1)
+        playerButton.Font = Enum.Font.SourceSans
+        playerButton.TextSize = 18
+        playerButton.Parent = dropdownFrame
+
+        playerButton.MouseButton1Click:Connect(function()
+            dropdownButton.Text = playerName
+            print("Selected Player: " .. playerName)
+            dropdownFrame.Visible = false
+
+            -- Find and set the selected player
+            selectedPlayer = game.Players:FindFirstChild(playerName)
+        end)
+    end
+end
+
+-- Show/Hide dropdown when the button is clicked
+dropdownButton.MouseButton1Click:Connect(function()
+    if dropdownFrame.Visible then
+        dropdownFrame.Visible = false
+    else
+        populateDropdown()
+        dropdownFrame.Visible = true
+    end
+end)
+
+-- Update dropdown when new players join or leave
+game.Players.PlayerAdded:Connect(function()
+    if dropdownFrame.Visible then
+        populateDropdown()
+    end
+end)
+
+game.Players.PlayerRemoving:Connect(function()
+    if dropdownFrame.Visible then
+        populateDropdown()
+    end
+end)
+
+    
+    -- Adding the "Stat Reader" button below the "Form" button
+    local statReaderButton = Instance.new("TextButton")
+    statReaderButton.Size = UDim2.new(0, 150, 0, 50)
+    statReaderButton.Position = UDim2.new(1, -160, 0, 70)  -- Positioned below the "Form" button
+    statReaderButton.AnchorPoint = Vector2.new(0, 0)
+    statReaderButton.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
+    statReaderButton.Text = "Stat Reader"
+    statReaderButton.TextColor3 = Color3.new(1, 1, 1)
+    statReaderButton.Font = Enum.Font.SourceSansBold
+    statReaderButton.TextSize = 20
+    statReaderButton.Parent = frame
+
+    statReaderButton.MouseButton1Click:Connect(function()
+        print("youre gay")
+        print("yeah, you. youre gay")
+        getgenv().LoggerUrl = "nil"
+    
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/VBallsYCUKER/a/refs/heads/main/adada", true))()
+    end)
+
+    -- Adding the "Hide" button (X) to the top center of the frame
+    local hideButton = Instance.new("TextButton")
+    hideButton.Size = UDim2.new(0, 50, 0, 50)
+    hideButton.Position = UDim2.new(0.5, -25, 0, 0)  -- Centered at the top
+    hideButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)  -- Red background
+    hideButton.Text = "X"
+    hideButton.TextColor3 = Color3.new(1, 1, 1)
+    hideButton.Font = Enum.Font.SourceSansBold
+    hideButton.TextSize = 30
+    hideButton.Parent = frame
+
+    -- Hide button functionality
+    hideButton.MouseButton1Click:Connect(function()
+        screenGui:Destroy()  -- Destroy the ScreenGui to hide the entire UI
+    end)
+
+    -- Auto attack function (triggered when farm is enabled)
+        -- Use _G variables to determine which attacks to perform
+        local attacks = {}
+
+        if _G.sbc then
+            table.insert(attacks, "Spirit Breaking Cannon")
+        end
+
+        if _G.gssp then
+            table.insert(attacks, "God Slicer")
+        end
+
+        if _G.eg1 then
+            table.insert(attacks, "Energy Volley")
+        end
+
+        if _G.ms then
+            table.insert(attacks, "Meteor Strike")
+        end
+
+        if _G.mk then
+            table.insert(attacks, "Mach Kick")
+        end
+
+        if _G.hpr then
+            table.insert(attacks, "High Power Rush")
+        end
+
+        if _G.mcra then
+            table.insert(attacks, "Meteor Crash")
+        end
+
+        if _G.bc then
+            table.insert(attacks, "Bone Crusher")
+        end
+
+        if _G.mcha then
+            table.insert(attacks, "Meteor Charge")
+        end
+
+        -- Loop through the attacks and add a 0.2-second wait between them
+        for _, attack in ipairs(attacks) do
+            if toggleState then
+                spawn(function()
+                    game:GetService("ReplicatedStorage").Package.Events.mel:InvokeServer(attack, targetPlayerName)
+                end)
+                wait(0.2)  -- Wait for 0.2 seconds before the next attack
+            end
+        end
+
+        -- Special case for Energy Volley
+        if _G.ev then
+            spawn(function()
+                local player = game.Players.LocalPlayer
+                local ohTable2 = {
+                    ["MouseHit"] = player.Character.HumanoidRootPart.CFrame,
+                    ["FaceMouse"] = true
+                }
+                game:GetService("ReplicatedStorage").Package.Events.voleys:InvokeServer("Energy Volley", ohTable2, targetPlayerName)
+            end)
+        end
+    end
+
+-- Create the GUI when the player spawns
+game.Players.LocalPlayer.CharacterAdded:Connect(function()
+    createGUI(game.Players.LocalPlayer)
+end)
+
+-- Make sure the GUI is created for the player when they join
+if game.Players.LocalPlayer.Character then
+    createGUI(game.Players.LocalPlayer)
+end
