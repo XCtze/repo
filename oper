@@ -53,21 +53,15 @@ local function createGUI(player)
     toggleButton.TextSize = 20
     toggleButton.Parent = frame
 
-    -- Toggle functionality
+    
     local toggleState = false
     toggleButton.MouseButton1Click:Connect(function()
         toggleState = not toggleState
         if toggleState then
             toggleButton.Text = "Farm Player: ON"
             print("Farm enabled")
-            
-            local args = {
-                "Blacknwhite27"
-            }
-            game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("cha"):InvokeServer(unpack(args))
+    
 
-
-            -- Enable all the farm actions
             _G.p = true
             _G.ev = true
             _G.ms = true
@@ -81,7 +75,7 @@ local function createGUI(player)
             _G.eg1 = true
             _G.gssp = true
             _G.sbc = true
-    
+            
             task.spawn(function ()
                 while _G.sbc == true do
                     local args = {
@@ -284,9 +278,6 @@ local function createGUI(player)
         else
             toggleButton.Text = "Farm Player: OFF"
             print("Farm disabled")
-    
-            -- Disable all actions
-
             _G.p = false
             _G.ev = false
             _G.ms = false
@@ -302,6 +293,8 @@ local function createGUI(player)
             _G.sbc = false
         end
     end)
+    
+
     -- Adding the "Form" button in the top-right corner
     local formButton = Instance.new("TextButton")
     formButton.Size = UDim2.new(0, 150, 0, 50)
@@ -347,24 +340,24 @@ local function createGUI(player)
     local scrollingFrame = Instance.new("ScrollingFrame")
     scrollingFrame.Size = UDim2.new(1, 0, 1, -40)
     scrollingFrame.Position = UDim2.new(0, 0, 0, 40)
-    scrollingFrame.CanvasSize = UDim2.new(0, 0, 2, 0)
+    scrollingFrame.CanvasSize = UDim2.new(0, 0, 4, 0)
     scrollingFrame.BackgroundTransparency = 1
     scrollingFrame.Parent = frame
 
     -- List of forms with GUI labels and actual names
     local forms = {
-        {"DRP", "Divine Rose Prominence"}, {"Astral Instinct", "Astral Instinct"}, {"Beast", "Beast"}, 
+        {"DRP", "Divine Rose Prominence"}, {"AI", "Astral Instinct"}, {"Beast", "Beast"}, 
         {"SSJBUI", "SSJBUI"}, {"UE", "Ultra Ego"}, {"LBSSJ4", "LBSSJ4"}, {"SSJR3", "SSJR3"}, 
         {"SSJB3", "SSJB3"}, {"G.O.D", "God of Destruction"}, {"G.O.C", "God of Creation"}, 
-        {"JUI", "Jiren Ultra Instinct"}, {"MUI", "Mastered Ultra Instinct"}, {"Godly SSJ2", "Godly SSJ2"}, 
-        {"UIO", "Ultra Instinct Omen"}, {"Evil SSJ", "Evil SSJ"}, {"Blue Evo", "Blue Evolution"}, 
-        {"Dark Rose", "Dark Rose"}, {"Kefla SSJ2", "Kefla SSJ2"}, {"SSJ Berserker", "SSJ Berserker"}, 
-        {"True Rose", "True Rose"}, {"SSBKK", "SSJB Kaioken"}, {"SSJ Rose", "SSJ Rose"}, 
-        {"SSJ Blue", "SSJ Blue"}, {"Corrupt SSJ", "Corrupt SSJ"}, {"SSJ Rage", "SSJ Rage"}, 
+        {"JUI", "Jiren Ultra Instinct"}, {"MUI", "Mastered Ultra Instinct"}, {"GSSJ2", "Godly SSJ2"}, 
+        {"UIO", "Ultra Instinct Omen"}, {"ESSJ", "Evil SSJ"}, {"Blue Evo", "Blue Evolution"}, 
+        {"DR", "Dark Rose"}, {"KSSJ2", "Kefla SSJ2"}, {"Berserk", "SSJ Berserker"}, 
+        {"TR", "True Rose"}, {"SSBKK", "SSJB Kaioken"}, {"SSJR", "SSJ Rose"}, 
+        {"SSJB", "SSJ Blue"}, {"CSSJ", "Corrupt SSJ"}, {"Rage", "SSJ Rage"}, 
         {"SSJG", "SSJG"}, {"SSJ4", "SSJ4"}, {"Mystic", "Mystic"}, {"LSSJ", "LSSJ"}, 
-        {"SSJ3", "SSJ3"}, {"Spirit SSJ", "Spirit SSJ"}, {"SSJ2 Majin", "SSJ2 Majin"}, 
+        {"SSJ3", "SSJ3"}, {"SP SSJ", "Spirit SSJ"}, {"Majin", "SSJ2 Majin"}, 
         {"SSJ2", "SSJ2"}, {"SSJ Kaioken", "SSJ Kaioken"}, {"SSJ", "SSJ"}, {"FSSJ", "FSSJ"}, 
-        {"Kaioken", "Kaioken"}
+        {"KK", "Kaioken"}
     }
 
     -- Create buttons for each form
@@ -438,12 +431,22 @@ dropdownFrame.Visible = false
 dropdownFrame.ScrollBarThickness = 8
 dropdownFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
 dropdownFrame.Parent = frame
-
 local function teleportLoop()
     while teleporting do
         if selectedPlayer and selectedPlayer.Character then
+            local humanoid = selectedPlayer.Character:FindFirstChild("Humanoid")
+
+            -- Stop teleporting if the target is dead
+            if humanoid and humanoid.Health == 0 then
+                repeat
+                    wait(1) -- Wait until the player is alive again
+                until selectedPlayer.Character and selectedPlayer.Character:FindFirstChild("Humanoid") and selectedPlayer.Character.Humanoid.Health > 0
+            end
+
+            -- Recheck after respawn
+            humanoid = selectedPlayer.Character:FindFirstChild("Humanoid")
             local targetTorso = selectedPlayer.Character:FindFirstChild("Torso") or selectedPlayer.Character:FindFirstChild("UpperTorso")
-            if targetTorso and game.Players.LocalPlayer.Character then
+            if humanoid and humanoid.Health > 0 and targetTorso and game.Players.LocalPlayer.Character then
                 local humanoidRootPart = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
                 if humanoidRootPart then
                     -- Move 2 studs in front of the target's torso
