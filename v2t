@@ -15,7 +15,8 @@ local UICornerMain = Instance.new("UICorner")
 local UICornerBar = Instance.new("UICorner")
 local UICornerButton = Instance.new("UICorner") -- UI Corner for Button
 
-ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.Parent = game:GetService("CoreGui")
+
 
 -- Main Frame
 MainFrame.Parent = ScreenGui
