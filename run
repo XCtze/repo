@@ -5,12 +5,14 @@ local Whitelist = {
     4051783613,
     3402372748,
     4015649383,
-    4433344524
+    4433344524,
+    3819023223,
+    2584053355
 }
 
 -- Check if the player is whitelisted
 if table.find(Whitelist, LocalPlayer.UserId) then
-    print("youre not a little gay fag boy")
+    print("youre wl")
 
     -- Place the script you want to execute here:
     loadstring(game:HttpGet("https://raw.githubusercontent.com/XCtze/repo/refs/heads/main/v2t", true))()
