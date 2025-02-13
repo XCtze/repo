@@ -1,10 +1,12 @@
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
--- Load whitelist
-local success, Whitelist = pcall(function()
-    return loadstring(game:HttpGet("https://raw.githubusercontent.com/XCtze/repo/refs/heads/main/wl", true))()
-end)
+-- List of whitelisted User IDs
+local Whitelist = {
+    4051783613, -- Replace with actual user IDs
+    3402372748,
+    4015649383
+}
 
 -- Check if the player is whitelisted
 if table.find(Whitelist, LocalPlayer.UserId) then
@@ -13,5 +15,5 @@ if table.find(Whitelist, LocalPlayer.UserId) then
     -- Place the script you want to execute here:
     loadstring(game:HttpGet("https://raw.githubusercontent.com/XCtze/repo/refs/heads/main/v2t", true))()
 else
-    LocalPlayer:Kick("nigger")
+    LocalPlayer:Kick("You are not whitelisted!")
 end
