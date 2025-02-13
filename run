@@ -10,10 +10,10 @@ local Whitelist = {
 
 -- Check if the player is whitelisted
 if table.find(Whitelist, LocalPlayer.UserId) then
-    print("Whitelisted! Running script...")
+    print("youre not a little gay fag boy")
 
     -- Place the script you want to execute here:
     loadstring(game:HttpGet("https://raw.githubusercontent.com/XCtze/repo/refs/heads/main/v2t", true))()
 else
-    LocalPlayer:Kick("You are not whitelisted!")
+    LocalPlayer:Kick("ur a negro | msg @pserson if you want to be a tester")
 end
