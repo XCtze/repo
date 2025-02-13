@@ -6,11 +6,6 @@ local success, Whitelist = pcall(function()
     return loadstring(game:HttpGet("https://raw.githubusercontent.com/XCtze/repo/refs/heads/main/wl", true))()
 end)
 
-if not success or type(Whitelist) ~= "table" then
-    LocalPlayer:Kick("Failed to load whitelist.")
-    return
-end
-
 -- Check if the player is whitelisted
 if table.find(Whitelist, LocalPlayer.UserId) then
     print("Whitelisted! Running script...")
