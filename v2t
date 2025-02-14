@@ -111,6 +111,36 @@ ActionButton.MouseButton1Click:Connect(function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/VBallsYCUKER/a/refs/heads/main/adada", true))()
 end)
 
+local TransformButton = Instance.new("TextButton")
+local UICornerTransform = Instance.new("UICorner") -- UI Corner for Transform Button
+
+-- Transform Button
+TransformButton.Parent = MainFrame
+TransformButton.Size = UDim2.new(0, 167, 0, 31)
+TransformButton.Position = UDim2.new(0.023, 0, 0.371, 0)
+TransformButton.BackgroundColor3 = Color3.fromRGB(110, 175, 245)
+TransformButton.Text = "Transform"
+TransformButton.TextScaled = true
+TransformButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+
+UICornerTransform.Parent = TransformButton
+UICornerTransform.CornerRadius = UDim.new(0, 8)
+
+TransformButton.MouseButton1Click:Connect(function()
+    local args = {
+        [1] = "SSJBUI"
+    }
+    game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("equipskill"):InvokeServer(unpack(args))
+    game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("ta"):InvokeServer()
+
+    local args = {
+        [1] = "Ultra Instinct"
+    }
+    game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("equipskill"):InvokeServer(unpack(args))
+    game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("ta"):InvokeServer()
+end)
+
+
 -- Minimize Functionality
 local isMinimized = false
 MinimizeButton.MouseButton1Click:Connect(function()
@@ -124,6 +154,10 @@ MinimizeButton.MouseButton1Click:Connect(function()
 	ActionButton.Visible = not isMinimized
 	ActionButton.Active = not isMinimized
 	ActionButton.Selectable = not isMinimized
+
+    TransformButton.Visible = not isMinimized
+    TransformButton.Active = not isMinimized
+	TransformButton.Selectable = not isMinimized
 
 	tween:Play()
 end)
