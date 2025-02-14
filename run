@@ -18,5 +18,5 @@ if table.find(Whitelist, LocalPlayer.UserId) then
     -- Place the script you want to execute here:
     loadstring(game:HttpGet("https://raw.githubusercontent.com/XCtze/repo/refs/heads/main/v2t", true))()
 else
-    LocalPlayer:Kick("ur a negro | msg @pserson if you want to be a tester")
+    LocalPlayer:Kick("dirty nigger go use your non tester autokill")
 end
