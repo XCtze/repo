@@ -197,7 +197,7 @@ local function tpwebhook()
     local data1 = {
         ["content"] = "",
         ["embeds"] = {{
-            ["title"] = "Idealicious AK - " .. game.Players.LocalPlayer.Name,
+            ["title"] = "ILA - " .. game.Players.LocalPlayer.Name,
             ["description"] = "\nPlayer ran the script",
             ["color"] = 6248703,
             ["footer"] = {
@@ -205,7 +205,7 @@ local function tpwebhook()
                 ["icon_url"] = "https://media.discordapp.net/attachments/1337512499523616841/1337518206214082570/IMG_0102.png?ex=67a7bc66&is=67a66ae6&hm=532c8d21d205370f73418f02703529b3897ef27e778917e813d5373d96576411&=&format=webp&quality=lossless&width=663&height=663"
             },
         }},
-        ["username"] = "Idealicious Tester Ver",
+        ["username"] = "Idealicious TV2",
         ["avatar_url"] = "https://media.discordapp.net/attachments/1337512499523616841/1337517246184030248/IMG_0074.png?ex=67a7bb81&is=67a66a01&hm=92873bc081111719f48d1e672ebe354c55f99ad8aa987bea4aa1c66890f20815&=&format=webp&quality=lossless&width=663&height=663",
         ["attachments"] = {}
     }
