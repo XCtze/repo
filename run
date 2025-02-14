@@ -9,7 +9,8 @@ local Whitelist = {
     3819023223,
     2584053355,
     4609105298,
-    640631607
+    640631607,
+    5705703793
 }
 
 -- Check if the player is whitelisted
