@@ -128,18 +128,13 @@ UICornerTransform.CornerRadius = UDim.new(0, 8)
 
 TransformButton.MouseButton1Click:Connect(function()
     local args = {
-        [1] = "SSJBUI"
+        [1] = "Astral Instinct"
     }
+    
     game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("equipskill"):InvokeServer(unpack(args))
-    game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("ta"):InvokeServer()
-
-    local args = {
-        [1] = "Ultra Instinct"
-    }
-    game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("equipskill"):InvokeServer(unpack(args))
-    game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("ta"):InvokeServer()
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("ta"):InvokeServer() 
 end)
-
 
 -- Minimize Functionality
 local isMinimized = false
