@@ -11,7 +11,8 @@ local Whitelist = {
     4609105298,
     640631607,
     5705703793,
-    5124483771
+    5124483771,
+    5768320237
 }
 
 -- Check if the player is whitelisted
