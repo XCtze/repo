@@ -2,7 +2,7 @@ local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
 
-local npcVegetable = game.Workspace.Others.NPCs:FindFirstChild("Vegetable (GoD in-training)") -- Find Vegetable (GoD in-training)
+local npcVegetable = game.Workspace.Others.NPCs:FindFirstChild("Vekuta (SSJBUI)") -- Find Vegetable (GoD in-training)
 local npcWinterBills = game.Workspace.Others.NPCs:FindFirstChild("Winter Bills") -- Find Winter Bills
 
 local function getPlayerData()
