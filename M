@@ -37,13 +37,7 @@ if lplr.PlayerGui:FindFirstChild("Start") then
     lplr.PlayerGui.Main.bruh.Enabled = true
 end
 
-local function equipSkill()
-    local args = { "Godly SSJ2" }
-    local package = game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events")
-    
-    package:WaitForChild("equipskill"):InvokeServer(unpack(args))
-    package:WaitForChild("ta"):InvokeServer()
-end
+
 
 -- Function to remove unwanted effects
 local function removeEffects(character)
@@ -74,6 +68,14 @@ local function checkAndRemoveEffects()
             task.wait(1) -- Short delay between executions
         end
     end
+end
+
+local function equipSkill()
+    local args = { "Godly SSJ2" }
+    local package = game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events")
+    
+    package:WaitForChild("equipskill"):InvokeServer(unpack(args))
+    package:WaitForChild("ta"):InvokeServer()
 end
 
 -- Run when character spawns
