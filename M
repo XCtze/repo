@@ -7,14 +7,6 @@ local lplr = game.Players.LocalPlayer
 while not lplr.Character do wait() end
 local ldata = game.ReplicatedStorage:WaitForChild("Datas"):WaitForChild(lplr.UserId)
 
-local function equipSkill()
-    local args = { "Godly SSJ2" }
-    local package = game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events")
-    
-    package:WaitForChild("equipskill"):InvokeServer(unpack(args))
-    package:WaitForChild("ta"):InvokeServer()
-end
-
 -- Function to clear everything under Lighting
 local function clearLighting()
     local lighting = game:GetService("Lighting")
@@ -43,6 +35,14 @@ if lplr.PlayerGui:FindFirstChild("Start") then
     end
     lplr.PlayerGui.Main.bruh.Enabled = false
     lplr.PlayerGui.Main.bruh.Enabled = true
+end
+
+local function equipSkill()
+    local args = { "Godly SSJ2" }
+    local package = game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events")
+    
+    package:WaitForChild("equipskill"):InvokeServer(unpack(args))
+    package:WaitForChild("ta"):InvokeServer()
 end
 
 -- Function to remove unwanted effects
