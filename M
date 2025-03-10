@@ -70,14 +70,6 @@ local function checkAndRemoveEffects()
     end
 end
 
-local function equipSkill()
-    local args = { "Godly SSJ2" }
-    local package = game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events")
-    
-    package:WaitForChild("equipskill"):InvokeServer(unpack(args))
-    package:WaitForChild("ta"):InvokeServer()
-end
-
 -- Run when character spawns
 lplr.CharacterAdded:Connect(function(character)
     task.wait(2) -- Wait 2 seconds for character to fully load
