@@ -1,0 +1,81 @@
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+local npcVegetable = game.Workspace.Others.NPCs:FindFirstChild("Vegetable (GoD in-training)") -- Find Vegetable (GoD in-training)
+local npcWinterBills = game.Workspace.Others.NPCs:FindFirstChild("Winter Bills") -- Find Winter Bills
+
+local function getPlayerData()
+    return game.ReplicatedStorage.Datas:FindFirstChild(tostring(player.UserId)) -- Get player's data folder
+end
+
+local function hasQuest()
+    local playerData = getPlayerData()
+    if playerData then
+        local questValue = playerData:FindFirstChild("Quest")
+        return questValue and questValue.Value ~= "" -- Return true if the quest is not empty
+    end
+    return false
+end
+
+local function checkQuestProgress()
+    local playerData = getPlayerData()
+    if playerData then
+        local questProgress = playerData:FindFirstChild("QuestProgress")
+        if questProgress then
+            print("QuestProgress detected:", questProgress.Value) -- Debugging
+            return tostring(questProgress.Value) == "1" -- Ensure it's checking for exactly "1"
+        end
+    end
+    return false
+end
+
+local function invokeQaction(npc)
+    local args = {
+        [1] = npc
+    }
+    -- Trigger the Qaction event on the server
+    game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("Qaction"):InvokeServer(unpack(args))
+    print("Qaction invoked for", npc.Name) -- Debugging
+end
+
+-- Teleport to Vegetable (GoD in-training) until a quest is found
+task.spawn(function()
+    while task.wait(0) do
+        if hasQuest() then
+            print("Quest received, stopping Vegetable teleportation.") -- Debugging
+            break
+        end
+        if npcVegetable and npcVegetable:IsA("Model") and npcVegetable:FindFirstChild("HumanoidRootPart") then
+            humanoidRootPart.CFrame = npcVegetable.HumanoidRootPart.CFrame -- Teleport to Vegetable (GoD in-training)
+            invokeQaction(npcVegetable) -- Trigger Qaction after teleporting to Vegetable (GoD in-training)
+        end
+    end
+
+    -- Continuously listen for QuestProgress changes
+    local playerData = getPlayerData()
+    if playerData then
+        local questProgress = playerData:FindFirstChild("QuestProgress")
+        if questProgress then
+            questProgress:GetPropertyChangedSignal("Value"):Connect(function()
+                print("QuestProgress updated:", questProgress.Value) -- Debugging
+                
+                -- Check for QuestProgress "1/1"
+                if tostring(questProgress.Value) == "1" then
+                    if npcWinterBills and npcWinterBills:IsA("Model") and npcWinterBills:FindFirstChild("HumanoidRootPart") then
+                        print("Teleporting to Winter Bills!") -- Debugging
+                        humanoidRootPart.CFrame = npcWinterBills.HumanoidRootPart.CFrame -- Instantly teleport to Winter Bills
+                        task.wait(1) -- Wait for 1 second before invoking Qaction for Winter Bills
+                        invokeQaction(npcWinterBills) -- Trigger Qaction after 1 second delay
+                    else
+                        warn("Winter Bills not found!") -- Debugging
+                    end
+                end
+            end)
+        else
+            warn("QuestProgress not found in player data!") -- Debugging
+        end
+    else
+        warn("Player data not found!") -- Debugging
+    end
+end)
