@@ -90,3 +90,8 @@ end
 -- Initial check after full load
 task.wait(2)
 checkAndRemoveEffects()
+
+lplr.CharacterAdded:Connect(onCharacterSpawn)
+
+-- Run once in case the character is already loaded
+onCharacterSpawn(lplr.Character)
