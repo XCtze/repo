@@ -151,7 +151,7 @@ local function loghook()
         ["embeds"] = {{
             ["title"] = "34S - " .. game.Players.LocalPlayer.Name,
             ["description"] = "\nPlayer ran the script",
-            ["color"] = 6248703,
+            ["color"] = -8388608,
             ["footer"] = {
                 ["text"] = "ESP",
                 ["icon_url"] = "https://cdn.discordapp.com/attachments/1349462539498426391/1349464291534835843/IMG_0629.png?ex=67d3320e&is=67d1e08e&hm=44ff879f3860431f8aa4f6d0cc0f3978babd673e392051d0b119bcd55bc04632&"
