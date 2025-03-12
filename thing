@@ -1,4 +1,5 @@
 local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
 
 local transformationMap = {
     ["Divine Rose Prominence"] = "DRP",
@@ -114,7 +115,7 @@ local function createBillboard(player)
         textLabel.Name = "TextLabel"
         textLabel.Size = UDim2.new(1, 0, 1, 0)
         textLabel.BackgroundTransparency = 1
-        textLabel.TextScaled = false
+        textLabel.TextScaled = true
         textLabel.Font = Enum.Font.SourceSansBold
         textLabel.TextStrokeTransparency = 0.2
         textLabel.TextSize = 20
