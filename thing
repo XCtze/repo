@@ -1,16 +1,61 @@
+while not game:IsLoaded() do wait() end
+while not game.Players.LocalPlayer do wait() end
+local lplr = game.Players.LocalPlayer
+while not lplr.Character do wait() end
+local ldata = game.ReplicatedStorage:WaitForChild("Datas"):WaitForChild(lplr.UserId)
+
+
+-- Load the character in
+if lplr.PlayerGui:FindFirstChild("Start") then
+	game:GetService("ReplicatedStorage").Package.Events.Start:InvokeServer()
+	if workspace.Others:FindFirstChild("Title") then
+		workspace.Others.Title:Destroy();
+	end;
+	local cam = game.Workspace.CurrentCamera;
+	cam.CameraType = Enum.CameraType.Custom;
+	cam.CameraSubject = lplr.Character.Humanoid;
+	_G.Ready = true
+	game.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.All, true);
+	lplr.PlayerGui:WaitForChild("Main").Enabled = true
+	if lplr.PlayerGui:FindFirstChild("Start") then
+		lplr.PlayerGui.Start:Destroy()
+	end
+    lplr.PlayerGui.Main.bruh.Enabled = false
+    lplr.PlayerGui.Main.bruh.Enabled = true
+end
+
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
 local transformationMap = {
     ["Divine Rose Prominence"] = "DRP",
     ["Astral Instinct"] = "AI",
-    ["Ultra Instinct Omen"] = "UI",
+    ["Ultra Instinct Omen"] = "UIO",
     ["Mastered Ultra Instinct"] = "MUI",
     ["Ultra Ego"] = "UE",
-    ["God of Destruction"] = "GOD",
-    ["God of Creation"] = "GOC",
+    ["God of Destruction"] = "GoD",
+    ["God of Creation"] = "GoC",
     ["Divine Blue"] = "DB",
     ["Jiren Ultra Instinct"] = "JUI"
+    ["SSJB Kaioken"] = "SSJBKK"
+    ["Kaioken"] = "KK"
+    ["SSJ Blue"] = "SSGSS"
+    ["True God of Destruction"] = "TGoD"
+    ["True God of Creation"] = "TGoC"
+    ["SSJ Rose"] = "Rosé"
+    ["SSJ Rage"] = "Rage"
+    ["Corrupt SSJ"] = "CSSJ"
+    ["Super Broly"] = "ISSJ"
+    ["SSJ2 Majin"] = "Majin"
+    ["True Rose"] = "TRosé"
+    ["SSJ Berserker"] = "Berserk"
+    ["Kefla SSJ2"] = "Kefla"
+    ["Dark Rose"] = "DRosé"
+    ["Blue Evolution"] = "SSJBE"
+    ["Evil SSJ"] = "ESSJ"
+    ["Godly SSJ2"] = "GSSJ2"
+    ["Mystic"] = "Potential Awk."
+    ["Spirit SSJ"] = "SPSSJ"
 }
 
 local function getPlayerTransformation(player)
