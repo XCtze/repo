@@ -114,7 +114,7 @@ local function createBillboard(player)
         textLabel.Name = "TextLabel"
         textLabel.Size = UDim2.new(1, 0, 1, 0)
         textLabel.BackgroundTransparency = 1
-        textLabel.TextScaled = true
+        textLabel.TextScaled = false
         textLabel.Font = Enum.Font.SourceSansBold
         textLabel.TextStrokeTransparency = 0.2
         textLabel.TextSize = 16 -- **Reduced size for better fit**
