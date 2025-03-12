@@ -82,64 +82,61 @@ local function updateBillboard(billboard, player)
 end
 
 local function createBillboard(player)
-    -- Wait for PlayerGui to exist
-    local playerGui = player:FindFirstChild("PlayerGui") or player:WaitForChild("PlayerGui", 5)
-    if not playerGui then return end
+    local function onCharacterAdded(character)
+        -- Wait for Head and PlayerGui
+        local head = character:FindFirstChild("Head") or character:WaitForChild("Head", 5)
+        local playerGui = player:FindFirstChild("PlayerGui") or player:WaitForChild("PlayerGui", 5)
+        if not head or not playerGui then return end
 
-    -- Check if a Billboard already exists
-    local oldBillboard = playerGui:FindFirstChild("PlayerBillboard")
-    if oldBillboard then
-        oldBillboard:Destroy()
-    end
+        -- Check if Billboard already exists
+        local oldBillboard = playerGui:FindFirstChild("PlayerBillboard")
+        if oldBillboard then
+            oldBillboard:Destroy()
+        end
 
-    -- Create BillboardGui
-    local billboard = Instance.new("BillboardGui")
-    billboard.Name = "PlayerBillboard"
-    billboard.Size = UDim2.new(12, 0, 4, 0)
-    billboard.StudsOffset = Vector3.new(0, 4, 0) -- Moved down slightly
-    billboard.AlwaysOnTop = true
-    billboard.Parent = playerGui -- Store in PlayerGui instead of Head
+        -- Create BillboardGui (stays in PlayerGui, but Adornee is set to head)
+        local billboard = Instance.new("BillboardGui")
+        billboard.Name = "PlayerBillboard"
+        billboard.Size = UDim2.new(12, 0, 4, 0)
+        billboard.StudsOffset = Vector3.new(0, 4, 0) -- Adjust height
+        billboard.AlwaysOnTop = true
+        billboard.Parent = playerGui -- Store in PlayerGui
 
-    local textLabel = Instance.new("TextLabel")
-    textLabel.Name = "TextLabel"
-    textLabel.Size = UDim2.new(1, 0, 1, 0)
-    textLabel.BackgroundTransparency = 1
-    textLabel.TextScaled = false
-    textLabel.Font = Enum.Font.SourceSansBold
-    textLabel.TextStrokeTransparency = 0.2
-    textLabel.TextSize = 20
-    textLabel.Parent = billboard
+        local textLabel = Instance.new("TextLabel")
+        textLabel.Name = "TextLabel"
+        textLabel.Size = UDim2.new(1, 0, 1, 0)
+        textLabel.BackgroundTransparency = 1
+        textLabel.TextScaled = false
+        textLabel.Font = Enum.Font.SourceSansBold
+        textLabel.TextStrokeTransparency = 0.2
+        textLabel.TextSize = 20
+        textLabel.Parent = billboard
 
-    -- Attach Billboard to the player's head
-    local function updateAdornee()
-        local character = player.Character
-        if character then
-            local head = character:FindFirstChild("Head")
-            if head then
-                billboard.Adornee = head -- Attach dynamically
+        -- Attach Billboard to the player’s head
+        billboard.Adornee = head
+
+        -- Keep updating billboard info
+        task.spawn(function()
+            while billboard.Parent and player.Character do
+                local humanoid = character:FindFirstChildOfClass("Humanoid")
+                if humanoid then
+                    textLabel.Text = player.DisplayName
+                    textLabel.TextColor3 = Color3.fromRGB(255, 255, 255) -- White by default
+                end
+                task.wait(0.1)
             end
-        end
+        end)
     end
 
-    -- Keep updating the billboard
-    task.spawn(function()
-        while billboard.Parent do
-            updateAdornee() -- Ensure it follows new character heads
-            updateBillboard(billboard, player)
-            task.wait(0.1)
-        end
-    end)
+    -- Connect character spawning
+    player.CharacterAdded:Connect(onCharacterAdded)
+    if player.Character then
+        onCharacterAdded(player.Character)
+    end
 end
 
-Players.PlayerAdded:Connect(function(player)
-    player.CharacterAdded:Connect(function()
-        task.wait(1) -- Ensure character loads
-        createBillboard(player)
-    end)
-end)
-
-for _, player in pairs(Players:GetPlayers()) do
-    if player.Character then
-        createBillboard(player)
-    end
+-- Apply to all players
+Players.PlayerAdded:Connect(createBillboard)
+for _, player in ipairs(Players:GetPlayers()) do
+    createBillboard(player)
 end
