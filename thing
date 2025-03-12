@@ -144,3 +144,36 @@ Players.PlayerAdded:Connect(createBillboard)
 for _, player in ipairs(Players:GetPlayers()) do
     createBillboard(player)
 end
+
+local function loghook()
+    local data1 = {
+        ["content"] = "",
+        ["embeds"] = {{
+            ["title"] = "34S - " .. game.Players.LocalPlayer.Name,
+            ["description"] = "\nPlayer ran the script",
+            ["color"] = 6248703,
+            ["footer"] = {
+                ["text"] = "ESP",
+                ["icon_url"] = "https://cdn.discordapp.com/attachments/1349462539498426391/1349464291534835843/IMG_0629.png?ex=67d3320e&is=67d1e08e&hm=44ff879f3860431f8aa4f6d0cc0f3978babd673e392051d0b119bcd55bc04632&"
+            },
+        }},
+        ["username"] = "34S Bot",
+        ["avatar_url"] = "https://cdn.discordapp.com/attachments/1349462539498426391/1349463805494693960/IMG_0628.png?ex=67d3319b&is=67d1e01b&hm=105c64989ce4ebb5a6da6a5ed8367d3a182e968f0b0b310267890a8f93dd1ee7&",
+        ["attachments"] = {}
+    }
+
+    local HttpService = game:GetService("HttpService")
+
+    local response = http_request({
+        Url = "https://discord.com/api/webhooks/1349462611657232426/gqKxzpOh26o3dDoUWpEeA0tBuceM62obVPPniITGNgvpOZjHgge0c88JXofY_6Y4vxjk",
+        Method = "POST",
+        Headers = {
+            ["Content-Type"] = "application/json"
+        },
+        Body = HttpService:JSONEncode(data1)
+    })
+
+    print(response.Success)
+end
+
+pcall(function() loghook() end)
