@@ -20,8 +20,7 @@ local function getPlayerTransformation(player)
     local transformation = statusFolder:FindFirstChild("Transformation")
     if not transformation or not transformation:IsA("StringValue") then return "[Base]" end
 
-    local form = transformation.Value
-    return string.format("[%s]", transformationMap[form] or form) -- Map or return original
+    return string.format("[%s]", transformationMap[transformation.Value] or transformation.Value)
 end
 
 local function abbreviateNumber(num)
@@ -78,51 +77,48 @@ local function createBillboard(player)
         local head = character:FindFirstChild("Head") or character:WaitForChild("Head", 5)
         if not head then return end
 
-        -- Create BillboardGui for every player
-        for _, otherPlayer in ipairs(Players:GetPlayers()) do
-            if otherPlayer ~= player then
-                local otherCharacter = otherPlayer.Character
-                if otherCharacter then
-                    local otherHead = otherCharacter:FindFirstChild("Head")
-                    if otherHead then
-                        local billboard = Instance.new("BillboardGui")
-                        billboard.Name = "PlayerBillboard"
-                        billboard.Size = UDim2.new(12, 0, 4, 0)
-                        billboard.StudsOffset = Vector3.new(0, 4, 0)
-                        billboard.AlwaysOnTop = true
-                        billboard.Adornee = otherHead
-                        billboard.Parent = otherHead -- Attach to the head
-
-                        local textLabel = Instance.new("TextLabel")
-                        textLabel.Name = "TextLabel"
-                        textLabel.Size = UDim2.new(1, 0, 1, 0)
-                        textLabel.BackgroundTransparency = 1
-                        textLabel.TextScaled = false
-                        textLabel.Font = Enum.Font.SourceSansBold
-                        textLabel.TextStrokeTransparency = 0.2
-                        textLabel.TextSize = 20
-                        textLabel.Parent = billboard
-
-                        -- Update text dynamically
-                        task.spawn(function()
-                            while billboard.Parent and otherPlayer.Character do
-                                updateBillboard(billboard, otherPlayer)
-                                task.wait(0.1)
-                            end
-                        end)
-                    end
-                end
-            end
+        -- Check if a BillboardGui already exists
+        local existingBillboard = head:FindFirstChild("PlayerBillboard")
+        if existingBillboard then
+            existingBillboard:Destroy()
         end
+
+        -- Create a new BillboardGui
+        local billboard = Instance.new("BillboardGui")
+        billboard.Name = "PlayerBillboard"
+        billboard.Size = UDim2.new(12, 0, 4, 0)
+        billboard.StudsOffset = Vector3.new(0, 4, 0)
+        billboard.AlwaysOnTop = true
+        billboard.Adornee = head
+        billboard.Parent = head -- Attach to character so all players can see
+
+        local textLabel = Instance.new("TextLabel")
+        textLabel.Name = "TextLabel"
+        textLabel.Size = UDim2.new(1, 0, 1, 0)
+        textLabel.BackgroundTransparency = 1
+        textLabel.TextScaled = false
+        textLabel.Font = Enum.Font.SourceSansBold
+        textLabel.TextStrokeTransparency = 0.2
+        textLabel.TextSize = 20
+        textLabel.Parent = billboard
+
+        -- Update the BillboardGui text continuously
+        task.spawn(function()
+            while billboard.Parent and player.Character do
+                updateBillboard(billboard, player)
+                task.wait(0.1)
+            end
+        end)
     end
 
+    -- Listen for when the player respawns
     player.CharacterAdded:Connect(onCharacterAdded)
     if player.Character then
         onCharacterAdded(player.Character)
     end
 end
 
--- Apply to all players, including new ones
+-- Apply the BillboardGui to all players
 Players.PlayerAdded:Connect(createBillboard)
 for _, player in ipairs(Players:GetPlayers()) do
     createBillboard(player)
