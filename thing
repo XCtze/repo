@@ -151,14 +151,14 @@ local function loghook()
         ["embeds"] = {{
             ["title"] = "34S - " .. game.Players.LocalPlayer.Name,
             ["description"] = "\nPlayer ran the script",
-            ["color"] = -8388608,
+            ["color"] = 16711680,
             ["footer"] = {
                 ["text"] = "ESP",
                 ["icon_url"] = "https://cdn.discordapp.com/attachments/1349462539498426391/1349464291534835843/IMG_0629.png?ex=67d3320e&is=67d1e08e&hm=44ff879f3860431f8aa4f6d0cc0f3978babd673e392051d0b119bcd55bc04632&"
             },
         }},
         ["username"] = "34S Bot",
-        ["avatar_url"] = "https://cdn.discordapp.com/attachments/1349462539498426391/1349463805494693960/IMG_0628.png?ex=67d3319b&is=67d1e01b&hm=105c64989ce4ebb5a6da6a5ed8367d3a182e968f0b0b310267890a8f93dd1ee7&",
+        ["avatar_url"] = "https://cdn.discordapp.com/attachments/1349462539498426391/1349465015123705936/IMG_0630.png?ex=67d332bb&is=67d1e13b&hm=d987147fc4fc140dfc8831fd853b157956d5267419646d4d0e48bc154fee3930&",
         ["attachments"] = {}
     }
 
