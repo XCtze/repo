@@ -21,15 +21,7 @@ local function getPlayerTransformation(player)
     if not transformation or not transformation:IsA("StringValue") then return "[Base]" end
 
     local form = transformation.Value
-    -- Check if the form exists in the transformationMap
-    local mappedForm = transformationMap[form]
-    
-    -- Return the form wrapped in brackets, regardless of whether it's mapped or not
-    if mappedForm then
-        return string.format("[%s]", mappedForm) -- Mapped form will also have brackets
-    else
-        return string.format("[%s]", form) -- Non-mapped form with brackets
-    end
+    return string.format("[%s]", transformationMap[form] or form) -- Map or return original
 end
 
 local function abbreviateNumber(num)
@@ -83,24 +75,24 @@ end
 
 local function createBillboard(player)
     local function onCharacterAdded(character)
-        -- Wait for Head and PlayerGui
         local head = character:FindFirstChild("Head") or character:WaitForChild("Head", 5)
-        local playerGui = player:FindFirstChild("PlayerGui") or player:WaitForChild("PlayerGui", 5)
-        if not head or not playerGui then return end
+        if not head then return end
 
-        -- Check if Billboard already exists
+        local playerGui = player:FindFirstChild("PlayerGui") or player:WaitForChild("PlayerGui", 5)
+        if not playerGui then return end
+
         local oldBillboard = playerGui:FindFirstChild("PlayerBillboard")
         if oldBillboard then
             oldBillboard:Destroy()
         end
 
-        -- Create BillboardGui (stays in PlayerGui, but Adornee is set to head)
         local billboard = Instance.new("BillboardGui")
         billboard.Name = "PlayerBillboard"
         billboard.Size = UDim2.new(12, 0, 4, 0)
-        billboard.StudsOffset = Vector3.new(0, 4, 0) -- Adjust height
+        billboard.StudsOffset = Vector3.new(0, 4, 0)
         billboard.AlwaysOnTop = true
-        billboard.Parent = playerGui -- Store in PlayerGui
+        billboard.Parent = playerGui
+        billboard.Adornee = head
 
         local textLabel = Instance.new("TextLabel")
         textLabel.Name = "TextLabel"
@@ -112,31 +104,24 @@ local function createBillboard(player)
         textLabel.TextSize = 20
         textLabel.Parent = billboard
 
-        -- Attach Billboard to the player’s head
-        billboard.Adornee = head
-
-        -- Keep updating billboard info
+        -- Update the billboard every 0.1 seconds
         task.spawn(function()
             while billboard.Parent and player.Character do
-                local humanoid = character:FindFirstChildOfClass("Humanoid")
-                if humanoid then
-                    textLabel.Text = player.DisplayName
-                    textLabel.TextColor3 = Color3.fromRGB(255, 255, 255) -- White by default
-                end
+                updateBillboard(billboard, player)
                 task.wait(0.1)
             end
         end)
     end
 
-    -- Connect character spawning
     player.CharacterAdded:Connect(onCharacterAdded)
     if player.Character then
         onCharacterAdded(player.Character)
     end
 end
 
--- Apply to all players
+-- Apply to all players, including those who join later
 Players.PlayerAdded:Connect(createBillboard)
 for _, player in ipairs(Players:GetPlayers()) do
     createBillboard(player)
 end
+
