@@ -2,7 +2,7 @@ getgenv().ESP = true
 getgenv().SkipL = true -- may cause some errors with game
 
 if getgenv().ESP == true then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/XCtze/repo/refs/heads/main/thing", true))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/XCtze/repo/refs/heads/main/esp", true))()
 end
 
 if getgenv().SkipL == true then
