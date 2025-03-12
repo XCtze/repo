@@ -1,9 +1,3 @@
-while not game:IsLoaded() do wait() end
-while not game.Players.LocalPlayer do wait() end
-local lplr = game.Players.LocalPlayer
-while not lplr.Character do wait() end
-local ldata = game.ReplicatedStorage:WaitForChild("Datas"):WaitForChild(lplr.UserId)
-
 
 -- Load the character in
 if lplr.PlayerGui:FindFirstChild("Start") then
