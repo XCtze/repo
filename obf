@@ -1,4 +1,4 @@
-getgenv().Esp = true
+getgenv().ESP = true
 --esp is well, yk, an esp
 getgenv().SkipL = true
 --skips loading (earth)
