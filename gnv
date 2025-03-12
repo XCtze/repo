@@ -6,47 +6,67 @@ if getgenv().ESP == true then
 end
 
 if getgenv().SkipL == true then
-    if game.PlaceId == 3311165597 then  -- Check if the place is the correct one
-        -- Wait for game to load
-        repeat wait() until game:IsLoaded()
-        repeat wait() until game.Players.LocalPlayer
-        local lplr = game.Players.LocalPlayer
-        repeat wait() until lplr.Character
-        local ldata = game.ReplicatedStorage:WaitForChild("Datas"):WaitForChild(lplr.UserId)
+    local player = game.Players.LocalPlayer
+    local gui = Instance.new("ScreenGui")
+    gui.Parent = player:FindFirstChild("PlayerGui") or player:WaitForChild("PlayerGui")
 
-        -- Load the character in
-        if lplr.PlayerGui:FindFirstChild("Start") then
-            game:GetService("ReplicatedStorage").Package.Events.Start:InvokeServer()
-            
-            -- Remove title if it exists
-            local title = workspace.Others:FindFirstChild("Title")
-            if title then title:Destroy() end
-            
-            -- Set up camera
-            local cam = game.Workspace.CurrentCamera
-            cam.CameraType = Enum.CameraType.Custom
-            cam.CameraSubject = lplr.Character:FindFirstChildOfClass("Humanoid")
-            
-            -- Enable UI and finalize setup
-            _G.Ready = true
-            game.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.All, true)
-            local mainGui = lplr.PlayerGui:FindFirstChild("Main")
-            if mainGui then
-                mainGui.Enabled = true
-                local bruh = mainGui:FindFirstChild("bruh")
-                if bruh then
-                    bruh.Enabled = false
-                    bruh.Enabled = true
-                end
-            end
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Parent = gui
+    textLabel.Size = UDim2.new(0.5, 0, 0.1, 0) -- 50% width, 10% height
+    textLabel.Position = UDim2.new(0.25, 0, 0.4, 0) -- Centered horizontally
+    textLabel.BackgroundTransparency = 1 -- No background
+    textLabel.TextColor3 = Color3.new(1, 1, 1) -- White text
+    textLabel.TextScaled = true -- Auto-scale text
+    textLabel.Font = Enum.Font.SourceSansBold -- Big, clear font
 
-            -- Remove Start GUI if still present
-            local startGui = lplr.PlayerGui:FindFirstChild("Start")
-            if startGui then
-                startGui:Destroy()
+    -- Check if the world is valid
+    if game.PlaceId ~= 3311165597 then
+        textLabel.Text = "Invalid world (" .. game.PlaceId .. "), not skipping"
+        wait(3) -- Show message for 3 seconds
+        gui:Destroy() -- Remove the UI after 3 seconds
+        return -- Stop script execution
+    else
+        textLabel.Text = "Valid world (" .. game.PlaceId .. "), skipping..."
+        wait(2) -- Show for 2 seconds before continuing
+        gui:Destroy()
+    end
+
+    -- Wait for game to load
+    repeat wait() until game:IsLoaded()
+    repeat wait() until player
+    repeat wait() until player.Character
+    local ldata = game.ReplicatedStorage:WaitForChild("Datas"):WaitForChild(player.UserId)
+
+    -- Load the character in
+    if player.PlayerGui:FindFirstChild("Start") then
+        game:GetService("ReplicatedStorage").Package.Events.Start:InvokeServer()
+        
+        -- Remove title if it exists
+        local title = workspace.Others:FindFirstChild("Title")
+        if title then title:Destroy() end
+        
+        -- Set up camera
+        local cam = game.Workspace.CurrentCamera
+        cam.CameraType = Enum.CameraType.Custom
+        cam.CameraSubject = player.Character:FindFirstChildOfClass("Humanoid")
+        
+        -- Enable UI and finalize setup
+        _G.Ready = true
+        game.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.All, true)
+        local mainGui = player.PlayerGui:FindFirstChild("Main")
+        if mainGui then
+            mainGui.Enabled = true
+            local bruh = mainGui:FindFirstChild("bruh")
+            if bruh then
+                bruh.Enabled = false
+                bruh.Enabled = true
             end
         end
-    else
-        print("Invalid world, not skipping")  -- Added else statement
+
+        -- Remove Start GUI if still present
+        local startGui = player.PlayerGui:FindFirstChild("Start")
+        if startGui then
+            startGui:Destroy()
+        end
     end
 end
