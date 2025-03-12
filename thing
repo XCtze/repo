@@ -1,5 +1,4 @@
 local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
 
 local transformationMap = {
     ["Divine Rose Prominence"] = "DRP",
@@ -96,7 +95,7 @@ local function createBillboard(player)
         local head = character:FindFirstChild("Head") or character:WaitForChild("Head", 5)
         if not head then return end
 
-        -- Check if a BillboardGui already exists
+        -- Remove existing BillboardGui if present
         local existingBillboard = head:FindFirstChild("PlayerBillboard")
         if existingBillboard then
             existingBillboard:Destroy()
@@ -105,8 +104,8 @@ local function createBillboard(player)
         -- Create a new BillboardGui
         local billboard = Instance.new("BillboardGui")
         billboard.Name = "PlayerBillboard"
-        billboard.Size = UDim2.new(12, 0, 4, 0)
-        billboard.StudsOffset = Vector3.new(0, 4, 0)
+        billboard.Size = UDim2.new(6, 0, 2, 0) -- **Made smaller**
+        billboard.StudsOffset = Vector3.new(0, 3, 0) -- **Positioned slightly above head**
         billboard.AlwaysOnTop = true
         billboard.Adornee = head
         billboard.Parent = head -- Attach to character so all players can see
@@ -118,7 +117,8 @@ local function createBillboard(player)
         textLabel.TextScaled = true
         textLabel.Font = Enum.Font.SourceSansBold
         textLabel.TextStrokeTransparency = 0.2
-        textLabel.TextSize = 20
+        textLabel.TextSize = 16 -- **Reduced size for better fit**
+        textLabel.TextWrapped = false -- **Ensures text stays on one line**
         textLabel.Parent = billboard
 
         -- Update the BillboardGui text continuously
