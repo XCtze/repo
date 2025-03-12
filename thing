@@ -1,0 +1,144 @@
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
+local transformationMap = {
+    ["Divine Rose Prominence"] = "DRP",
+    ["Astral Instinct"] = "AI",
+    ["Ultra Instinct"] = "UI",
+    ["Mastered Ultra Instinct"] = "MUI",
+    ["Ultra Ego"] = "UE",
+    ["God of Destruction"] = "GOD",
+    ["God of Creation"] = "GOC",
+    ["Divine Blue"] = "DB",
+    ["Jiren Ultra Instinct"] = "JUI"
+}
+
+local function getPlayerTransformation(player)
+    local statusFolder = player:FindFirstChild("Status")
+    if not statusFolder then return "[Base]" end
+
+    local transformation = statusFolder:FindFirstChild("Transformation")
+    if not transformation or not transformation:IsA("StringValue") then return "[Base]" end
+
+    local form = transformation.Value
+    -- Check if the form exists in the transformationMap
+    local mappedForm = transformationMap[form]
+    
+    -- Return the form wrapped in brackets, regardless of whether it's mapped or not
+    if mappedForm then
+        return string.format("[%s]", mappedForm) -- Mapped form will also have brackets
+    else
+        return string.format("[%s]", form) -- Non-mapped form with brackets
+    end
+end
+
+local function abbreviateNumber(num)
+    local suffixes = {"", "K", "M", "B", "T", "QD"}
+    local index = 1
+
+    while num >= 1000 and index < #suffixes do
+        num = num / 1000
+        index = index + 1
+    end
+
+    return string.format("%.1f%s", num, suffixes[index])
+end
+
+local function getHealthColor(health)
+    if health < 1000 then
+        return Color3.fromRGB(0, 255, 0) -- Green
+    elseif health < 1e6 then
+        return Color3.fromRGB(255, 255, 0) -- Yellow
+    elseif health < 1e9 then
+        return Color3.fromRGB(255, 0, 0) -- Red
+    elseif health < 1e12 then
+        return Color3.fromRGB(0, 0, 255) -- Blue
+    elseif health < 1e15 then
+        return Color3.fromRGB(0, 255, 255) -- Light Blue
+    else
+        return Color3.fromRGB(128, 0, 128) -- Purple
+    end
+end
+
+local function updateBillboard(billboard, player)
+    local character = player.Character
+    if not character then return end
+
+    local humanoid = character:FindFirstChildOfClass("Humanoid")
+    if not humanoid then return end
+
+    local health = humanoid.Health
+    local maxHealth = humanoid.MaxHealth
+    local formattedHealth = string.format("%s/%s HP", abbreviateNumber(health), abbreviateNumber(maxHealth))
+
+    local form = getPlayerTransformation(player)
+    local displayText = string.format("%s %s [@%s] | [%s]", form, player.DisplayName, player.Name, formattedHealth)
+
+    local textLabel = billboard:FindFirstChild("TextLabel")
+    if textLabel then
+        textLabel.Text = displayText
+        textLabel.TextColor3 = getHealthColor(health)
+    end
+end
+
+local function createBillboard(player)
+    local character = player.Character
+    if not character then return end
+
+    local head = character:FindFirstChild("Head")
+    if not head then return end
+
+    local oldBillboard = head:FindFirstChild("PlayerBillboard")
+    if oldBillboard then
+        oldBillboard:Destroy()
+    end
+
+    local billboard = Instance.new("BillboardGui")
+    billboard.Name = "PlayerBillboard"
+    billboard.Size = UDim2.new(12, 0, 4, 0) -- Increased size
+    billboard.StudsOffset = Vector3.new(0, 5, 0) -- Lifted above head
+    billboard.AlwaysOnTop = true
+    billboard.Parent = head
+
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Name = "TextLabel"
+    textLabel.Size = UDim2.new(1, 0, 1, 0)
+    textLabel.BackgroundTransparency = 1
+    textLabel.TextScaled = false -- Disabled text scaling to keep it on one line
+    textLabel.Font = Enum.Font.SourceSansBold
+    textLabel.TextStrokeTransparency = 0.2
+    textLabel.TextSize = 20 -- Custom text size
+    textLabel.Parent = billboard
+
+    -- Continuously update billboard (every frame)
+    task.spawn(function()
+        while billboard.Parent and character.Parent do
+            updateBillboard(billboard, player)
+            task.wait(0) -- Real-time update
+        end
+    end)
+
+    -- Listen for transformation changes
+    local statusFolder = player:FindFirstChild("Status")
+    if statusFolder then
+        local transformation = statusFolder:FindFirstChild("Transformation")
+        if transformation and transformation:IsA("StringValue") then
+            transformation.Changed:Connect(function()
+                updateBillboard(billboard, player)
+            end)
+        end
+    end
+end
+
+Players.PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(function()
+        task.wait(1) -- Small delay to let character load
+        createBillboard(player)
+    end)
+end)
+
+for _, player in pairs(Players:GetPlayers()) do
+    if player.Character then
+        createBillboard(player)
+    end
+end
