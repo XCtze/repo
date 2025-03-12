@@ -4,7 +4,7 @@ local RunService = game:GetService("RunService")
 local transformationMap = {
     ["Divine Rose Prominence"] = "DRP",
     ["Astral Instinct"] = "AI",
-    ["Ultra Instinct"] = "UI",
+    ["Ultra Instinct Omen"] = "UI",
     ["Mastered Ultra Instinct"] = "MUI",
     ["Ultra Ego"] = "UE",
     ["God of Destruction"] = "GOD",
@@ -82,24 +82,23 @@ local function updateBillboard(billboard, player)
 end
 
 local function createBillboard(player)
-    local character = player.Character
-    if not character then return end
+    -- Wait for PlayerGui to exist
+    local playerGui = player:FindFirstChild("PlayerGui") or player:WaitForChild("PlayerGui", 5)
+    if not playerGui then return end
 
-    -- Wait until head exists
-    local head = character:FindFirstChild("Head") or character:WaitForChild("Head", 5)
-    if not head then return end -- Prevent errors if head never appears
-
-    local oldBillboard = head:FindFirstChild("PlayerBillboard")
+    -- Check if a Billboard already exists
+    local oldBillboard = playerGui:FindFirstChild("PlayerBillboard")
     if oldBillboard then
         oldBillboard:Destroy()
     end
 
+    -- Create BillboardGui
     local billboard = Instance.new("BillboardGui")
     billboard.Name = "PlayerBillboard"
     billboard.Size = UDim2.new(12, 0, 4, 0)
-    billboard.StudsOffset = Vector3.new(0, 5, 0)
+    billboard.StudsOffset = Vector3.new(0, 4, 0) -- Moved down slightly
     billboard.AlwaysOnTop = true
-    billboard.Parent = head -- Attach to head safely
+    billboard.Parent = playerGui -- Store in PlayerGui instead of Head
 
     local textLabel = Instance.new("TextLabel")
     textLabel.Name = "TextLabel"
@@ -111,17 +110,30 @@ local function createBillboard(player)
     textLabel.TextSize = 20
     textLabel.Parent = billboard
 
-    -- Ensure the text updates every frame
+    -- Attach Billboard to the player's head
+    local function updateAdornee()
+        local character = player.Character
+        if character then
+            local head = character:FindFirstChild("Head")
+            if head then
+                billboard.Adornee = head -- Attach dynamically
+            end
+        end
+    end
+
+    -- Keep updating the billboard
     task.spawn(function()
-        while billboard.Parent and character.Parent do
+        while billboard.Parent do
+            updateAdornee() -- Ensure it follows new character heads
             updateBillboard(billboard, player)
-            task.wait(0)
+            task.wait(0.1)
         end
     end)
 end
+
 Players.PlayerAdded:Connect(function(player)
     player.CharacterAdded:Connect(function()
-        task.wait(1) -- Small delay to let character load
+        task.wait(1) -- Ensure character loads
         createBillboard(player)
     end)
 end)
