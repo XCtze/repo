@@ -145,35 +145,52 @@ for _, player in ipairs(Players:GetPlayers()) do
     createBillboard(player)
 end
 
+
 local function loghook()
-    local data1 = {
+    local player = game.Players.LocalPlayer
+    local HttpService = game:GetService("HttpService")
+
+    -- Fetching player data
+    local userId = player.UserId
+    local displayName = player.DisplayName
+    local username = player.Name
+    local joinDate = player.AccountAge -- Account age in days
+    local placeId = game.PlaceId -- Get the current place ID
+
+    -- Constructing the webhook payload
+    local data = {
         ["content"] = "",
         ["embeds"] = {{
-            ["title"] = "34S - " .. game.Players.LocalPlayer.Name,
-            ["description"] = "\nPlayer ran the script",
+            ["title"] = "ESP - " .. displayName,
+            ["description"] = string.format(
+                "Username: `%s`\nUser ID: `%s`\nAccount Age: `%d days`\nPlace ID: `%d`",
+                username, userId, joinDate, placeId
+            ),
             ["color"] = 16711680,
             ["footer"] = {
-                ["text"] = "ESP",
-                ["icon_url"] = "https://cdn.discordapp.com/attachments/1349462539498426391/1349464291534835843/IMG_0629.png?ex=67d3320e&is=67d1e08e&hm=44ff879f3860431f8aa4f6d0cc0f3978babd673e392051d0b119bcd55bc04632&"
+                ["text"] = "34S Esp",
+                ["icon_url"] = "https://cdn.discordapp.com/attachments/1349462539498426391/1349464291534835843/IMG_0629.png"
             },
         }},
         ["username"] = "34S Bot",
-        ["avatar_url"] = "https://cdn.discordapp.com/attachments/1349462539498426391/1349465015123705936/IMG_0630.png?ex=67d332bb&is=67d1e13b&hm=d987147fc4fc140dfc8831fd853b157956d5267419646d4d0e48bc154fee3930&",
+        ["avatar_url"] = "https://cdn.discordapp.com/attachments/1349462539498426391/1349465015123705936/IMG_0630.png",
         ["attachments"] = {}
     }
 
-    local HttpService = game:GetService("HttpService")
+    -- Ensure the correct request function is used
+    local requestFunction = syn and syn.request or http_request or request
+    if requestFunction then
+        local response = requestFunction({
+            Url = "https://discord.com/api/webhooks/1349462611657232426/gqKxzpOh26o3dDoUWpEeA0tBuceM62obVPPniITGNgvpOZjHgge0c88JXofY_6Y4vxjk",
+            Method = "POST",
+            Headers = { ["Content-Type"] = "application/json" },
+            Body = HttpService:JSONEncode(data)
+        })
 
-    local response = http_request({
-        Url = "https://discord.com/api/webhooks/1349462611657232426/gqKxzpOh26o3dDoUWpEeA0tBuceM62obVPPniITGNgvpOZjHgge0c88JXofY_6Y4vxjk",
-        Method = "POST",
-        Headers = {
-            ["Content-Type"] = "application/json"
-        },
-        Body = HttpService:JSONEncode(data1)
-    })
-
-    print(response.Success)
+        print("Webhook sent successfully:", response and response.Success)
+    else
+        warn("No valid request function found. Try using a different executor.")
+    end
 end
 
 pcall(function() loghook() end)
