@@ -1,6 +1,4 @@
-
 local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
 
 local transformationMap = {
     ["Divine Rose Prominence"] = "DRP",
@@ -11,25 +9,25 @@ local transformationMap = {
     ["God of Destruction"] = "GoD",
     ["God of Creation"] = "GoC",
     ["Divine Blue"] = "DB",
-    ["Jiren Ultra Instinct"] = "JUI"
-    ["SSJB Kaioken"] = "SSJBKK"
-    ["Kaioken"] = "KK"
-    ["SSJ Blue"] = "SSGSS"
-    ["True God of Destruction"] = "TGoD"
-    ["True God of Creation"] = "TGoC"
-    ["SSJ Rose"] = "Rosé"
-    ["SSJ Rage"] = "Rage"
-    ["Corrupt SSJ"] = "CSSJ"
-    ["Super Broly"] = "ISSJ"
-    ["SSJ2 Majin"] = "Majin"
-    ["True Rose"] = "TRosé"
-    ["SSJ Berserker"] = "Berserk"
-    ["Kefla SSJ2"] = "Kefla"
-    ["Dark Rose"] = "DRosé"
-    ["Blue Evolution"] = "SSJBE"
-    ["Evil SSJ"] = "ESSJ"
-    ["Godly SSJ2"] = "GSSJ2"
-    ["Mystic"] = "Potential Awk."
+    ["Jiren Ultra Instinct"] = "JUI",
+    ["SSJB Kaioken"] = "SSJBKK",
+    ["Kaioken"] = "KK",
+    ["SSJ Blue"] = "SSGSS",
+    ["True God of Destruction"] = "TGoD",
+    ["True God of Creation"] = "TGoC",
+    ["SSJ Rose"] = "Rosé",
+    ["SSJ Rage"] = "Rage",
+    ["Corrupt SSJ"] = "CSSJ",
+    ["Super Broly"] = "ISSJ",
+    ["SSJ2 Majin"] = "Majin",
+    ["True Rose"] = "TRosé",
+    ["SSJ Berserker"] = "Berserk",
+    ["Kefla SSJ2"] = "Kefla",
+    ["Dark Rose"] = "DRosé",
+    ["Blue Evolution"] = "SSJBE",
+    ["Evil SSJ"] = "ESSJ",
+    ["Godly SSJ2"] = "GSSJ2",
+    ["Mystic"] = "Potential Awk.",
     ["Spirit SSJ"] = "SPSSJ"
 }
 
