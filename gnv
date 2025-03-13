@@ -34,12 +34,14 @@ if getgenv().SkipL == true then
     -- Check place ID immediately
     if game.PlaceId ~= 3311165597 then
         textLabel.Text = "place is " .. game.PlaceId .. ", not skipping load"
-        task.wait() -- Show message for 3 seconds
+        warn("planet is invalid, not skipping")
+        task.wait(.0001) -- Show message for 3 seconds
         gui:Destroy() -- Remove UI
         return -- Stop execution immediately
     else
         textLabel.Text = "place is " .. game.PlaceId .. ", skipping load"
-        task.wait()
+        warn("planet is valid. skipping")
+        task.wait(.0001)
         gui:Destroy()
     end
 
