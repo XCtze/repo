@@ -3,10 +3,7 @@ CoreGui:SetCore("SendNotification", {
 	Title = "Executed",
 	Text = "Script is executed",
 	Duration = 5.5,
-})
-
-getgenv().ESP = true
-getgenv().SkipL = true -- may cause some errors with game
+}
 
 if getgenv().ESP == true then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/XCtze/repo/refs/heads/main/esp", true))()
