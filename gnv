@@ -7,8 +7,13 @@ end
 
 if getgenv().SkipL == true then
     local player = game.Players.LocalPlayer
+
+    -- Ensure PlayerGui exists
+    repeat wait() until player:FindFirstChild("PlayerGui")
+
+    -- Create UI immediately
     local gui = Instance.new("ScreenGui")
-    gui.Parent = player:FindFirstChild("PlayerGui") or player:WaitForChild("PlayerGui")
+    gui.Parent = player.PlayerGui
 
     local textLabel = Instance.new("TextLabel")
     textLabel.Parent = gui
@@ -19,19 +24,19 @@ if getgenv().SkipL == true then
     textLabel.TextScaled = true -- Auto-scale text
     textLabel.Font = Enum.Font.SourceSansBold -- Big, clear font
 
-    -- Check if the world is valid
+    -- Check place ID immediately
     if game.PlaceId ~= 3311165597 then
         textLabel.Text = "Invalid world (" .. game.PlaceId .. "), not skipping"
         wait(3) -- Show message for 3 seconds
-        gui:Destroy() -- Remove the UI after 3 seconds
-        return -- Stop script execution
+        gui:Destroy() -- Remove UI
+        return -- Stop execution immediately
     else
         textLabel.Text = "Valid world (" .. game.PlaceId .. "), skipping..."
-        wait(2) -- Show for 2 seconds before continuing
+        wait(2) -- Show for 2 seconds
         gui:Destroy()
     end
 
-    -- Wait for game to load
+    -- Now proceed with the actual skipping logic
     repeat wait() until game:IsLoaded()
     repeat wait() until player
     repeat wait() until player.Character
