@@ -1,0 +1,72 @@
+    local player = game.Players.LocalPlayer
+
+    -- Ensure PlayerGui exists
+    repeat wait() until player:FindFirstChild("PlayerGui")
+
+    -- Create UI immediately
+    local gui = Instance.new("ScreenGui")
+    gui.Parent = player.PlayerGui
+
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Parent = gui
+    textLabel.Size = UDim2.new(0.5, 0, 0.1, 0) -- 50% width, 10% height
+    textLabel.Position = UDim2.new(0.25, 0, 0.4, 0) -- Centered horizontally
+    textLabel.BackgroundTransparency = 1 -- No background
+    textLabel.TextColor3 = Color3.new(1, 1, 1) -- White text
+    textLabel.TextScaled = true -- Auto-scale text
+    textLabel.Font = Enum.Font.SourceSansBold -- Big, clear font
+
+    -- Check place ID immediately
+    if game.PlaceId ~= 3311165597 then
+        textLabel.Text = "place is " .. game.PlaceId .. ", not skipping load"
+        warn("planet is invalid, not skipping")
+        task.wait(.0001) -- Show message for 3 seconds
+        gui:Destroy() -- Remove UI
+        return -- Stop execution immediately
+    else
+        textLabel.Text = "place is " .. game.PlaceId .. ", skipping load"
+        warn("planet is valid. skipping")
+        task.wait(.0001)
+        gui:Destroy()
+    end
+
+    -- Proceed with skipping logic
+    spawn(function()
+        repeat wait() until game:IsLoaded()
+        repeat wait() until player
+        repeat wait() until player.Character
+        local ldata = game.ReplicatedStorage:WaitForChild("Datas"):WaitForChild(player.UserId)
+
+        -- Load the character in
+        if player.PlayerGui:FindFirstChild("Start") then
+            game:GetService("ReplicatedStorage").Package.Events.Start:InvokeServer()
+            
+            -- Remove title if it exists
+            local title = workspace.Others:FindFirstChild("Title")
+            if title then title:Destroy() end
+            
+            -- Set up camera
+            local cam = game.Workspace.CurrentCamera
+            cam.CameraType = Enum.CameraType.Custom
+            cam.CameraSubject = player.Character:FindFirstChildOfClass("Humanoid")
+            
+            -- Enable UI and finalize setup
+            _G.Ready = true
+            game.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.All, true)
+            local mainGui = player.PlayerGui:FindFirstChild("Main")
+            if mainGui then
+                mainGui.Enabled = true
+                local bruh = mainGui:FindFirstChild("bruh")
+                if bruh then
+                    bruh.Enabled = false
+                    bruh.Enabled = true
+                end
+            end
+
+            -- Remove Start GUI if still present
+            local startGui = player.PlayerGui:FindFirstChild("Start")
+            if startGui then
+                startGui:Destroy()
+            end
+        end
+    end)
