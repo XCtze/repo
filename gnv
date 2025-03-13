@@ -26,12 +26,12 @@ if getgenv().SkipL == true then
 
     -- Check place ID immediately
     if game.PlaceId ~= 3311165597 then
-        textLabel.Text = "Invalid world (" .. game.PlaceId .. "), not skipping"
-        wait(3) -- Show message for 3 seconds
+        textLabel.Text = "place is (" .. game.PlaceId .. "), not skipping load"
+        wait(2) -- Show message for 3 seconds
         gui:Destroy() -- Remove UI
         return -- Stop execution immediately
     else
-        textLabel.Text = "Valid world (" .. game.PlaceId .. "), skipping..."
+        textLabel.Text = "place is (" .. game.PlaceId .. "), skipping load"
         wait(2) -- Show for 2 seconds
         gui:Destroy()
     end
