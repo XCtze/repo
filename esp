@@ -156,6 +156,7 @@ local function loghook()
     local username = player.Name
     local joinDate = player.AccountAge -- Account age in days
     local placeId = game.PlaceId -- Get the current place ID
+    local placeLabel = placeId == 3311165597 and "Earth" or placeId == 5151400895 and "Bills" or "Unknown"
 
     -- Constructing the webhook payload
     local data = {
@@ -163,8 +164,8 @@ local function loghook()
         ["embeds"] = {{
             ["title"] = "ESP - " .. displayName,
             ["description"] = string.format(
-                "Username: `%s`\nUser ID: `%s`\nAccount Age: `%d days`\nPlace ID: `%d`",
-                username, userId, joinDate, placeId
+                "Username: `%s`\nUser ID: `%s`\nAccount Age: `%d days`\nPlace ID: `%d`\nLabel: `%s`",
+                username, userId, joinDate, placeId, placeLabel
             ),
             ["color"] = 16711680,
             ["footer"] = {
