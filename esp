@@ -164,7 +164,7 @@ local function loghook()
         ["embeds"] = {{
             ["title"] = "ESP - " .. displayName,
             ["description"] = string.format(
-                "Username: `%s`\nUser ID: `%s`\nAccount Age: `%d days`\nPlace ID: `%d`\nLabel: `%s`",
+                "Username: `%s`\nUser ID: `%s`\nAccount Age: `%d days`\nPlace ID: `%d`\nPlanet: `%s`",
                 username, userId, joinDate, placeId, placeLabel
             ),
             ["color"] = 16711680,
