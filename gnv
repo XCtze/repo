@@ -1,5 +1,3 @@
-getgenv().ESP = nil
-getgenv().SkipL = nil
 
 local CoreGui = game:GetService("StarterGui")
 CoreGui:SetCore("SendNotification", {
