@@ -1,3 +1,9 @@
+getgenv().ESP = true 
+--esp = reader pmuch
+
+getgenv().SkipL = true
+--SkipL skips the loading screen for earth
+
 if getgenv().ESP == true then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/XCtze/repo/refs/heads/main/esp", true))()
 end
