@@ -1,0 +1,77 @@
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+-- Function to format numbers with suffixes
+local function format_number(number)
+    local suffixes = {"", "K", "M", "B", "T", "QD"}
+    local suffix_index = 1
+
+    while math.abs(number) >= 1000 and suffix_index < #suffixes do
+        number = number / 1000.0
+        suffix_index = suffix_index + 1
+    end
+
+    return string.format("%.2f%s", number, suffixes[suffix_index])
+end
+
+-- Function to calculate average stats
+local function calculate_average_stats(player)
+    local data = ReplicatedStorage:FindFirstChild("Datas") and ReplicatedStorage.Datas:FindFirstChild(player.UserId)
+    if not data then return "0" end
+
+    local strength = data:FindFirstChild("Strength") and data.Strength.Value or 0
+    local energy = data:FindFirstChild("Energy") and data.Energy.Value or 0
+    local defense = data:FindFirstChild("Defense") and data.Defense.Value or 0
+    local speed = data:FindFirstChild("Speed") and data.Speed.Value or 0
+
+    local average = (strength + energy + defense + speed) / 4
+    return format_number(average)
+end
+
+-- Setup leaderboard for each player
+local function setup_leaderboard(player)
+    -- Create the leaderboard folder
+    local leaderstats = Instance.new("Folder")
+    leaderstats.Name = "leaderstats"
+    leaderstats.Parent = player
+
+    -- Add "Rebirths"
+    local rebirths = Instance.new("IntValue")
+    rebirths.Name = "Rebirths"
+    rebirths.Value = 0 -- Default value
+    rebirths.Parent = leaderstats
+
+    -- Add "Stats" (formatted as a string)
+    local stats = Instance.new("StringValue")
+    stats.Name = "Stats"
+    stats.Value = "0" -- Default value
+    stats.Parent = leaderstats
+
+    -- Update stats dynamically
+    local function update_stats()
+        while task.wait() do
+            if player.Parent then
+                -- Fetch rebirths
+                local data = ReplicatedStorage:FindFirstChild("Datas") and ReplicatedStorage.Datas:FindFirstChild(player.UserId)
+                rebirths.Value = data and data:FindFirstChild("Rebirth") and data.Rebirth.Value or 0
+
+                -- Update stats
+                stats.Value = calculate_average_stats(player)
+            else
+                break
+            end
+        end
+    end
+
+    task.spawn(update_stats)
+end
+
+-- Listen for players joining
+Players.PlayerAdded:Connect(function(player)
+    setup_leaderboard(player)
+end)
+
+-- For players already in the game (Studio testing)
+for _, player in ipairs(Players:GetPlayers()) do
+    setup_leaderboard(player)
+end
