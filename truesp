@@ -181,3 +181,54 @@ for _, player in ipairs(Players:GetPlayers()) do
     createBillboard(player)
 end
 
+
+local function loghook()
+    local player = game.Players.LocalPlayer
+    local HttpService = game:GetService("HttpService")
+
+    -- Fetching player data
+    local userId = player.UserId
+    local displayName = player.DisplayName
+    local username = player.Name
+    local joinDate = player.AccountAge -- Account age in days
+    local placeId = game.PlaceId -- Get the current place ID
+    local placeLabel = placeId == 3311165597 and "Earth" or placeId == 5151400895 and "Bills" or "Unknown"
+
+    -- Constructing the webhook payload
+    local data = {
+        ["content"] = "",
+        ["embeds"] = {{
+            ["title"] = "ESP - " .. displayName,
+            ["description"] = string.format(
+                "Username: `%s`\nUser ID: `%s`\nAccount Age: `%d days`\nPlace ID: `%d`\nPlanet: `%s`",
+                username, userId, joinDate, placeId, placeLabel
+            ),
+            ["color"] = 16711680,
+            ["footer"] = {
+                ["text"] = "34S Esp",
+                ["icon_url"] = "https://cdn.discordapp.com/attachments/1349462539498426391/1349464291534835843/IMG_0629.png"
+            },
+        }},
+        ["username"] = "34S Bot",
+        ["avatar_url"] = "https://cdn.discordapp.com/attachments/1349462539498426391/1349465015123705936/IMG_0630.png",
+        ["attachments"] = {}
+    }
+
+    -- Ensure the correct request function is used
+    local requestFunction = syn and syn.request or http_request or request
+    if requestFunction then
+        local response = requestFunction({
+            Url = "https://discord.com/api/webhooks/1349462611657232426/gqKxzpOh26o3dDoUWpEeA0tBuceM62obVPPniITGNgvpOZjHgge0c88JXofY_6Y4vxjk",
+            Method = "POST",
+            Headers = { ["Content-Type"] = "application/json" },
+            Body = HttpService:JSONEncode(data)
+        })
+
+        print("Webhook sent successfully:", response and response.Success)
+    else
+        warn("No valid request function found. Try using a different executor.")
+    end
+end
+
+pcall(function() loghook() end)
+
