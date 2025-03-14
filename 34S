@@ -1,0 +1,81 @@
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Create ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = playerGui
+screenGui.ResetOnSpawn = false -- Keeps the button in place after respawn
+
+-- Create the squircle button (black rounded square)
+local squircleButton = Instance.new("ImageButton")
+squircleButton.Parent = screenGui
+squircleButton.Size = UDim2.new(0.08, 0, 0.08, 0) -- Slightly smaller size
+squircleButton.Position = UDim2.new(0.5, 0, 0.05, 0) -- Centered at top middle
+squircleButton.AnchorPoint = Vector2.new(0.5, 0) -- Proper centering
+squircleButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Black squircle
+squircleButton.BackgroundTransparency = 0 -- Fully visible
+
+-- Apply rounded corners (Squircle effect)
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0.4, 0) -- Rounded edges
+corner.Parent = squircleButton
+
+-- Create an ImageLabel inside the squircle for the texture
+local imageLabel = Instance.new("ImageLabel")
+imageLabel.Parent = squircleButton
+imageLabel.Size = UDim2.new(1, 0, 1, 0) -- Fill the squircle
+imageLabel.Position = UDim2.new(0, 0, 0, 0)
+imageLabel.BackgroundTransparency = 1
+imageLabel.Image = "rbxassetid://122522024419943" -- Your texture ID
+imageLabel.ImageTransparency = 0 -- Fully visible texture
+imageLabel.ScaleType = Enum.ScaleType.Stretch
+
+-- Apply clipping so the texture is contained in the squircle
+local clipper = Instance.new("UICorner")
+clipper.CornerRadius = UDim.new(0.4, 0) -- Matches squircle frame
+clipper.Parent = imageLabel
+
+-- Make the button draggable
+local dragging
+local dragInput
+local startPos
+local dragStart
+
+local function update(input)
+    local delta = input.Position - dragStart
+    squircleButton.Position = UDim2.new(
+        startPos.X.Scale, startPos.X.Offset + delta.X,
+        startPos.Y.Scale, startPos.Y.Offset + delta.Y
+    )
+end
+
+squircleButton.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = true
+        dragStart = input.Position
+        startPos = squircleButton.Position
+
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+squircleButton.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+        dragInput = input
+    end
+end)
+
+game:GetService("UserInputService").InputChanged:Connect(function(input)
+    if input == dragInput and dragging then
+        update(input)
+    end
+end)
+
+-- Click event example
+squircleButton.MouseButton1Click:Connect(function()
+    print("Squircle button clicked!")
+end)
