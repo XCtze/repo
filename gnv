@@ -1,3 +1,4 @@
+--For esp, colors are based on stats.
 getgenv().ESP = true 
 --esp = reader pmuch
 
